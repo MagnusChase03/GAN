@@ -1,5 +1,5 @@
-#include "gan/GAN.h"
-#include "linalg/Matrix.h"
+#include <gan/GAN.h>
+#include <linalg/Matrix.h>
 #include <vector>
 
 int main() {
