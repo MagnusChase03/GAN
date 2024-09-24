@@ -54,7 +54,7 @@ Matrix* Network::Backward(Matrix* errors, double lr, bool update) {
     }
 
     Matrix* delta;
-    Matrix* old;
+    Matrix* old = nullptr;
     for (int i = this->nLayers - 1; i >= 0; i--) {
         if (i == this->nLayers - 1) {
             delta = this->layers[i]->Backward(errors, lr, update);

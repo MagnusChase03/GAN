@@ -7,10 +7,16 @@ int main() {
     std::vector<int> discriminatorShape = {4, 2, 1};
     GAN* gan = new GAN(generatorShape, discriminatorShape);
 
-    std::vector<std::vector<double>> inputs = {{0.61}};
-    Matrix* inputMatrix = new Matrix(inputs);
-    Matrix* outputs = gan->GeneratorForward(inputMatrix);
-    outputs->Print();
+    std::vector<std::vector<double>> realValues = {{1.0}, {0.0}, {0.0}, {1.0}};
+    Matrix* realValuesMatrix = new Matrix(realValues);
+    for (int i = 0; i < 10; i++) {
+        Matrix* output = gan->DiscriminatorForward(realValuesMatrix);
+        output->Print();
+
+        std::vector<std::vector<double>> error = {{output->getValue(0, 0) - 1.0}};
+        Matrix* errorM = new Matrix(error);
+        gan->DiscriminatorBackward(errorM, 1.0, true);
+    }
 
     return 0;
 }
