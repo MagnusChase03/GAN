@@ -16,6 +16,9 @@ int main() {
         std::vector<std::vector<double>> error = {{output->getValue(0, 0) - 1.0}};
         Matrix* errorM = new Matrix(error);
         gan->DiscriminatorBackward(errorM, 1.0, true);
+        
+        delete errorM;
+        delete output;
     }
 
     return 0;

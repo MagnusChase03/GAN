@@ -51,6 +51,7 @@ Matrix* Layer::Forward(Matrix* inputs) {
         result->setValue(i, 0, post);
     }
 
+    delete product;
     return result;
 }
 
