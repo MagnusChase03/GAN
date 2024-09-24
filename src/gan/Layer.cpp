@@ -62,10 +62,9 @@ Matrix* Layer::Backward(Matrix* errors, double lr, bool update) {
 
     Matrix* delta = new Matrix(this->inputSize, 1);
     for (int i = 0; i < this->outputSize; i++) {
+        double prior = this->activation->Dir(this->outputCache->getValue(i, 0));
+        double mainDelta = errors->getValue(i, 0) * prior;
         for (int j = 0; j < this->inputSize; j++) {
-            double prior = this->activation->Dir(this->outputCache->getValue(i, 0));
-            double mainDelta = errors->getValue(i, 0) * prior;
-
             double oldDelta = delta->getValue(j, 0);
             delta->setValue(j, 0, 
                 oldDelta + (mainDelta * this->weights->getValue(i, j))
