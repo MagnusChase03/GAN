@@ -7,7 +7,7 @@ EX_OBJ = $(patsubst example/%.cpp,build/example/%.o,$(EX_SRC))
 build/libgan.so: $(OBJ)
 	mkdir -p $(@D)
 	g++ -shared -o $@ $^
-	strip build/gan.so
+	strip $@
 
 build/%.o: src/%.cpp
 	mkdir -p $(@D)
@@ -18,6 +18,7 @@ example: build/example/main
 build/example/main: build/libgan.so $(EX_OBJ)
 	mkdir -p $(@D)
 	g++ -o $@ $(EX_OBJ) -Lbuild -lgan -Isrc
+	strip $@
 
 build/example/%.o: example/%.cpp
 	mkdir -p $(@D)
