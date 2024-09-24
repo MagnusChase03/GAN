@@ -43,8 +43,8 @@ Matrix* Layer::Forward(Matrix* inputs) {
         this->inputCache->setValue(i, 0, inputs->getValue(i, 0));
     }
 
-    Matrix* product = this->weights->dot(inputs);
-    Matrix* result = product->add(this->bias); 
+    Matrix* product = this->weights->Dot(inputs);
+    Matrix* result = product->Add(this->bias); 
     for (int i = 0; i < this->outputSize; i++) {
         this->outputCache->setValue(i, 0, result->getValue(i, 0));
         double post = this->activation->Normal(result->getValue(i, 0));

@@ -10,7 +10,7 @@ int main() {
     std::vector<std::vector<double>> inputs = {{0.61}};
     Matrix* inputMatrix = new Matrix(inputs);
     Matrix* outputs = gan->GeneratorForward(inputMatrix);
-    outputs->print();
+    outputs->Print();
 
     return 0;
 }

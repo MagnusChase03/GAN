@@ -46,7 +46,7 @@ void Matrix::setValue(int row, int col, double value) {
 }
 
 
-Matrix* Matrix::dot(Matrix* other) {
+Matrix* Matrix::Dot(Matrix* other) {
     if (this->cols != other->getRows()) {
         throw std::runtime_error("[ERROR] Invalid dimensions");
     }
@@ -66,7 +66,7 @@ Matrix* Matrix::dot(Matrix* other) {
 }
 
 
-Matrix* Matrix::add(Matrix* other) {
+Matrix* Matrix::Add(Matrix* other) {
     if (this->rows != other->getRows() || this->cols != other->getCols()) {
         throw std::runtime_error("[ERROR] Invalid dimensions");
     }
@@ -82,7 +82,7 @@ Matrix* Matrix::add(Matrix* other) {
     return result;
 }
 
-Matrix* Matrix::mult(double value) {
+Matrix* Matrix::Mult(double value) {
     Matrix* result = new Matrix(this->rows, this->cols);
     for (int i = 0; i < this->rows; i++) {
         for (int j = 0; j < this->cols; j++) {
@@ -94,7 +94,7 @@ Matrix* Matrix::mult(double value) {
     return result;
 }
 
-void Matrix::print() {
+void Matrix::Print() {
     for (int i = 0; i < this->rows; i++) {
         for (int j = 0; j < this->cols; j++) {
             printf("%.2f ", this->values[i][j]);

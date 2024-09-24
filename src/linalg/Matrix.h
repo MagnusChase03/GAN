@@ -18,11 +18,11 @@ public:
     double getValue(int row, int col);
     void setValue(int row, int col, double value);
 
-    Matrix* dot(Matrix* other);
-    Matrix* add(Matrix* other);
-    Matrix* mult(double value);
+    Matrix* Dot(Matrix* other);
+    Matrix* Add(Matrix* other);
+    Matrix* Mult(double value);
 
-    void print();
+    void Print();
 };
 
 #endif
