@@ -47,7 +47,7 @@ Matrix* Layer::Forward(Matrix* inputs) {
     Matrix* result = product->add(this->bias); 
     for (int i = 0; i < this->outputSize; i++) {
         this->outputCache->setValue(i, 0, result->getValue(i, 0));
-        double post = this->activation->normal(result->getValue(i, 0));
+        double post = this->activation->Normal(result->getValue(i, 0));
         result->setValue(i, 0, post);
     }
 
@@ -62,7 +62,7 @@ Matrix* Layer::Backward(Matrix* errors, double lr, bool update) {
     Matrix* delta = new Matrix(this->inputSize, 1);
     for (int i = 0; i < this->outputSize; i++) {
         for (int j = 0; j < this->inputSize; j++) {
-            double prior = this->activation->dir(this->outputCache->getValue(i, 0));
+            double prior = this->activation->Dir(this->outputCache->getValue(i, 0));
             double mainDelta = errors->getValue(i, 0) * prior;
 
             double oldDelta = delta->getValue(j, 0);
