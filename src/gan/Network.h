@@ -2,7 +2,6 @@
 #define NETWORK_H
 
 #include "Layer.h"
-#include "Activation.h"
 #include <vector>
 
 class Network {
@@ -21,7 +20,7 @@ public:
     int getNLayers() {return nLayers;}
 
     Matrix* Forward(Matrix* inputs);
-    Matrix* Backward(Matrix* errors, double lr);
+    Matrix* Backward(Matrix* errors, double lr, bool update);
 };
 
 #endif

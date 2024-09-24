@@ -23,7 +23,7 @@ public:
     int getOutputSize() {return outputSize;}
     
     Matrix* Forward(Matrix* inputs);
-    Matrix* Backward(Matrix* errors, double lr);
+    Matrix* Backward(Matrix* errors, double lr, bool update);
 };
 
 #endif

@@ -54,7 +54,7 @@ Matrix* Layer::Forward(Matrix* inputs) {
     return result;
 }
 
-Matrix* Layer::Backward(Matrix* errors, double lr) {
+Matrix* Layer::Backward(Matrix* errors, double lr, bool update) {
     if (errors->getRows() != this->outputSize || errors->getCols() != 1) {
         throw std::runtime_error("[ERROR] Invalid dimensions");
     }
@@ -69,6 +69,10 @@ Matrix* Layer::Backward(Matrix* errors, double lr) {
             delta->setValue(j, 0, 
                 oldDelta + (mainDelta * this->weights->getValue(i, j))
             );
+
+            if (!update) {
+                continue;
+            }
 
             double oldWeight = this->weights->getValue(i, j);
             this->weights->setValue(i, j, 

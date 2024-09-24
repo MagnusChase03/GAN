@@ -48,7 +48,7 @@ Matrix* Network::Forward(Matrix* inputs) {
     return result;
 }
 
-Matrix* Network::Backward(Matrix* errors, double lr) {
+Matrix* Network::Backward(Matrix* errors, double lr, bool update) {
     if (errors->getRows() != this->outputSize || errors->getCols() != 1) {
         throw std::runtime_error("[ERROR] Invalid dimensions");
     }
@@ -57,14 +57,14 @@ Matrix* Network::Backward(Matrix* errors, double lr) {
     Matrix* old;
     for (int i = this->nLayers - 1; i >= 0; i--) {
         if (i == this->nLayers - 1) {
-            delta = this->layers[i]->Backward(errors, lr);
+            delta = this->layers[i]->Backward(errors, lr, update);
             continue;
         }
         if (old != nullptr) {
             delete old;
         }
         old = delta;
-        delta = this->layers[i]->Backward(old, lr);
+        delta = this->layers[i]->Backward(old, lr, update);
     }
     delete old;
     return delta;
