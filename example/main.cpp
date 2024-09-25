@@ -12,9 +12,9 @@ int main() {
     std::vector<int> discriminatorShape = {4, 1};
     GAN* gan = new GAN(generatorShape, discriminatorShape);
 
-    std::vector<std::vector<double>> realValues = {{1.0, 0.1, 0.1, 1.0}};
+    std::vector<std::vector<double>> realValues = {{1.0, 0.1, 0.1, 1.0}, {0.0, 1.0, 1.0, 0.0}};
     Matrix* realValuesMatrix = new Matrix(realValues);
-    gan->Train(realValuesMatrix, 1000, 0.01);
+    gan->Train(realValuesMatrix, 10000, 0.01);
     //gan->Print();
 
     return 0;
