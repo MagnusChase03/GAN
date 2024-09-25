@@ -111,8 +111,7 @@ void GAN::Train(Matrix* realData, int iterations, double lr) {
                 fakeInput[k] = {(double) std::rand() / RAND_MAX};
             }
             Matrix* fakeInputMatrix = new Matrix(fakeInput);
-            Matrix* fakeGenerated = this->GeneratorForward(fakeInputMatrix);
-            Matrix* fakeOutput = this->DiscriminatorForward(fakeGenerated);
+            Matrix* fakeOutput = this->FullForward(fakeInputMatrix);
             double fakeClass = fakeOutput->getValue(0, 0);
             printf("Fake Data Error: %.4f\n", -std::log(fakeClass));
             if (fakeClass >= 0.5) {
@@ -129,9 +128,7 @@ void GAN::Train(Matrix* realData, int iterations, double lr) {
                 delete fakeErrorMatrix;
             }
 
-            fakeGenerated->Print();
             delete fakeOutput;
-            delete fakeGenerated;
             delete fakeInputMatrix;
             delete realErrorMatrix;
             delete realOutput;
