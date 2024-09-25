@@ -78,7 +78,7 @@ void GAN::Train(Matrix* realData, int iterations, double lr) {
             Matrix* realInput = realData->TakeRow(j);
             Matrix* realOutput = this->DiscriminatorForward(realInput);
             double realClass = realOutput->getValue(0, 0);
-            
+
             printf("Real Data Error: %.4f ", -std::log(realClass));
             std::vector<std::vector<double>> realError = {{-1.0 / realClass}};
             Matrix* realErrorMatrix = new Matrix(realError);
@@ -106,7 +106,7 @@ void GAN::Train(Matrix* realData, int iterations, double lr) {
                 delete delta;
                 delete fakeErrorMatrix;
             }
-            
+
             fakeGenerated->Print();
             delete fakeOutput;
             delete fakeGenerated;
