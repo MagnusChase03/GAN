@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <stdexcept>
+#include <cstdio>
 
 Layer::Layer(int inputSize, int outputSize, ActivationFunction* activation) {
     if (inputSize < 1 || outputSize < 1) {
@@ -86,4 +87,11 @@ Matrix* Layer::Backward(Matrix* errors, double lr, bool update) {
     }
 
     return delta;
+}
+
+void Layer::Print() {
+    printf("Weights\n---\n");
+    this->weights->Print();
+    printf("\nBias\n---\n");
+    this->bias->Print();
 }

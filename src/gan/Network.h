@@ -21,6 +21,8 @@ public:
 
     Matrix* Forward(Matrix* inputs);
     Matrix* Backward(Matrix* errors, double lr, bool update);
+
+    void Print();
 };
 
 #endif

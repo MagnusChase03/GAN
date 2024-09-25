@@ -1,6 +1,7 @@
 #include "Network.h"
 #include "Layer.h"
 #include <stdexcept>
+#include <cstdio>
 
 Network::Network(std::vector<int> shape, ActivationFunction* outputActivation) {
     if (shape.size() < 2) {
@@ -16,7 +17,7 @@ Network::Network(std::vector<int> shape, ActivationFunction* outputActivation) {
             this->layers[i] = new Layer(shape[i], shape[i + 1], outputActivation);
             break;
         } 
-        this->layers[i] = new Layer(shape[i], shape[i + 1], new Sigmoid());
+        this->layers[i] = new Layer(shape[i], shape[i + 1], new Relu());
     }
 }
 
@@ -68,4 +69,12 @@ Matrix* Network::Backward(Matrix* errors, double lr, bool update) {
     }
     delete old;
     return delta;
+}
+
+void Network::Print() {
+    for (int i = 0; i < this->nLayers; i++) {
+        printf("Layer %d\n---\n", i);
+        this->layers[i]->Print();
+        printf("\n\n");
+    }
 }

@@ -97,7 +97,7 @@ Matrix* Matrix::Mult(double value) {
 void Matrix::Print() {
     for (int i = 0; i < this->rows; i++) {
         for (int j = 0; j < this->cols; j++) {
-            printf("%.2f ", this->values[i][j]);
+            printf("%.4f ", this->values[i][j]);
         }
         printf("\n");
     }

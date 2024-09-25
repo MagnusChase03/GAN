@@ -15,6 +15,13 @@ public:
     double Dir(double x);
 };
 
+class Relu : public ActivationFunction {
+public:
+    ~Relu() {}
+    double Normal(double x);
+    double Dir(double x);
+};
+
 class NoActivation : public ActivationFunction {
 public:
     ~NoActivation() {}

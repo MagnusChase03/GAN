@@ -17,6 +17,8 @@ public:
 
     Matrix* GeneratorBackward(Matrix* errors, double lr, bool update);
     Matrix* DiscriminatorBackward(Matrix* errors, double lr, bool update);
+
+    void Print();
 };
 
 #endif

@@ -1,6 +1,7 @@
 #include "GAN.h"
 #include "Activation.h"
 #include <stdexcept>
+#include <cstdio>
 
 GAN::GAN(std::vector<int> generatorShape, std::vector<int> discriminatorShape) {
     int generatorEnd = generatorShape[generatorShape.size() - 1];
@@ -22,7 +23,7 @@ GAN::~GAN() {
 Matrix* GAN::FullForward(Matrix* inputs) {
     if (inputs->getRows() != this->generator->getInputSize() || inputs->getCols() != 1) {
         throw std::runtime_error("[ERROR] Invalid dimension");
-    } 
+    }
 
     Matrix* generatedOuput = this->generator->Forward(inputs);
     Matrix* classificationOutput = this->discriminator->Forward(generatedOuput);
@@ -33,7 +34,7 @@ Matrix* GAN::FullForward(Matrix* inputs) {
 Matrix* GAN::GeneratorForward(Matrix* inputs) {
     if (inputs->getRows() != this->generator->getInputSize() || inputs->getCols() != 1) {
         throw std::runtime_error("[ERROR] Invalid dimension");
-    } 
+    }
 
     Matrix* generatedOuput = this->generator->Forward(inputs);
     return generatedOuput;
@@ -42,7 +43,7 @@ Matrix* GAN::GeneratorForward(Matrix* inputs) {
 Matrix* GAN::DiscriminatorForward(Matrix* inputs) {
     if (inputs->getRows() != this->discriminator->getInputSize() || inputs->getCols() != 1) {
         throw std::runtime_error("[ERROR] Invalid dimension");
-    } 
+    }
 
     Matrix* classificationOutput = this->discriminator->Forward(inputs);
     return classificationOutput;
@@ -64,4 +65,11 @@ Matrix* GAN::DiscriminatorBackward(Matrix* errors, double lr, bool update) {
 
     Matrix* delta = this->discriminator->Backward(errors, lr, update);
     return delta;
+}
+
+void GAN::Print() {
+    printf("Generator\n---\n");
+    this->generator->Print();
+    printf("Discriminator\n---\n");
+    this->discriminator->Print();
 }
