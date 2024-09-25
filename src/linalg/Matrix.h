@@ -18,6 +18,7 @@ public:
     double getValue(int row, int col);
     void setValue(int row, int col, double value);
 
+    Matrix* TakeRow(int row);
     Matrix* Dot(Matrix* other);
     Matrix* Add(Matrix* other);
     Matrix* Mult(double value);

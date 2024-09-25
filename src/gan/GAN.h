@@ -18,6 +18,8 @@ public:
     Matrix* GeneratorBackward(Matrix* errors, double lr, bool update);
     Matrix* DiscriminatorBackward(Matrix* errors, double lr, bool update);
 
+    void Train(Matrix* realData, int iterations, double lr);
+
     void Print();
 };
 

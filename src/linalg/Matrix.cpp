@@ -45,6 +45,17 @@ void Matrix::setValue(int row, int col, double value) {
     this->values[row][col] = value;
 }
 
+Matrix* Matrix::TakeRow(int row) {
+    if (row < 0 || row >= this->rows) {
+        throw std::runtime_error("[ERROR] Invalid index");
+    }
+
+    Matrix* result = new Matrix(this->cols, 1);
+    for (int i = 0; i < this->cols; i++) {
+        result->setValue(i, 0, this->values[row][i]);
+    }
+    return result;
+}
 
 Matrix* Matrix::Dot(Matrix* other) {
     if (this->cols != other->getRows()) {
