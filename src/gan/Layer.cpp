@@ -64,6 +64,10 @@ Matrix* Layer::Backward(Matrix* errors, double lr, bool update) {
     for (int i = 0; i < this->outputSize; i++) {
         double prior = this->activation->Dir(this->outputCache->getValue(i, 0));
         double mainDelta = errors->getValue(i, 0) * prior;
+        if (update) {
+            double oldBias = this->bias->getValue(i, 0);
+            this->bias->setValue(i, 0, oldBias - (mainDelta * lr));
+        }
         for (int j = 0; j < this->inputSize; j++) {
             double oldDelta = delta->getValue(j, 0);
             delta->setValue(j, 0, 
