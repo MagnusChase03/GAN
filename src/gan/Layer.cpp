@@ -81,7 +81,7 @@ Matrix* Layer::Backward(Matrix* errors, double lr, bool update) {
 
             double oldWeight = this->weights->getValue(i, j);
             this->weights->setValue(i, j, 
-                oldWeight - (mainDelta * this->inputCache->getValue(j, 0) * lr)
+                oldWeight - (mainDelta * this->inputCache->getValue(j, 0) * lr) - 0.0001
             );
         }
     }

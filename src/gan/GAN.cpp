@@ -70,6 +70,28 @@ Matrix* GAN::DiscriminatorBackward(Matrix* errors, double lr, bool update) {
     return delta;
 }
 
+Matrix* GAN::Generate(int num) {
+    int generatorInputSize = this->generator->getInputSize();
+    Matrix* result = new Matrix(num, this->generator->getOutputSize());
+    for (int i = 0; i < num; i++) {
+        std::vector<std::vector<double>> fakeInput = std::vector<std::vector<double>>(generatorInputSize);
+        for (int k = 0; k < generatorInputSize; k++) {
+            fakeInput[k] = {(double) std::rand() / RAND_MAX};
+        }
+
+        Matrix* fakeInputMatrix = new Matrix(fakeInput);
+        Matrix* fakeGenerated = this->GeneratorForward(fakeInputMatrix);
+        for (int j = 0; j < this->generator->getOutputSize(); j++) {
+            result->setValue(i, j, fakeGenerated->getValue(j, 0));
+        }
+
+        delete fakeGenerated;
+        delete fakeInputMatrix;
+
+    }
+    return result;
+}
+
 void GAN::Train(Matrix* realData, int iterations, double lr) {
     std::srand(std::time(nullptr));
     int generatorInputSize = this->generator->getInputSize();
@@ -94,12 +116,12 @@ void GAN::Train(Matrix* realData, int iterations, double lr) {
             double fakeClass = fakeOutput->getValue(0, 0);
             printf("Fake Data Error: %.4f\n", -std::log(fakeClass));
             if (fakeClass >= 0.5) {
-                std::vector<std::vector<double>> fakeError = {{1.0 / (1.0 - realClass)}};
+                std::vector<std::vector<double>> fakeError = {{1.0 / (1.0 - fakeClass)}};
                 Matrix* fakeErrorMatrix = new Matrix(fakeError);
                 delete this->DiscriminatorBackward(fakeErrorMatrix, lr, true);
                 delete fakeErrorMatrix;
             } else {
-                std::vector<std::vector<double>> fakeError = {{-1.0 / realClass}};
+                std::vector<std::vector<double>> fakeError = {{-1.0 / fakeClass}};
                 Matrix* fakeErrorMatrix = new Matrix(fakeError);
                 Matrix* delta = this->DiscriminatorBackward(fakeErrorMatrix, lr, false);
                 delete this->GeneratorBackward(delta, lr, true);
